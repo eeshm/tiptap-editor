@@ -1,8 +1,27 @@
 @import "tailwindcss";
 
+/**
+ * Global styles for the Paginated Document Editor.
+ * 
+ * These styles provide:
+ * 1. CSS custom properties for theming
+ * 2. Typography defaults optimized for document editing
+ * 3. Print-ready styles that match screen appearance
+ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Color palette */
+  --background: #f5f5f5;
+  --foreground: #1a1a1a;
+  --card-background: #ffffff;
+  --border-color: #e5e5e5;
+  --muted-color: #6b7280;
+  
+  /* Typography */
+  --font-document: 'Georgia', 'Times New Roman', serif;
+  
+  /* Spacing */
+  --page-gap: 24px;
 }
 
 @theme inline {
@@ -12,15 +31,141 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Editor-specific styles */
+.paginated-editor-container {
+  /* Smooth scrolling for better UX */
+  scroll-behavior: smooth;
+  
+  /* Ensure proper height calculation */
+  height: calc(100vh - 180px);
+}
+
+/* Page visual enhancements */
+.page-container {
+  /* Print-like appearance */
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease;
+}
+
+.page-container:hover {
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.1),
+    0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Toolbar enhancements */
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  background: rgba(249, 250, 251, 0.95);
+}
+
+/* Print styles */
+@media print {
+  /* Hide non-printable elements */
+  header,
+  .toolbar,
+  .page-indicator,
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* Reset page styling for print */
+  body {
+    background: white;
+    margin: 0;
+    padding: 0;
+  }
+
+  .paginated-editor-container {
+    height: auto;
+    overflow: visible;
+    padding: 0;
+    background: white;
+  }
+
+  .page-container {
+    box-shadow: none;
+    border: none;
+    page-break-after: always;
+    margin: 0;
+  }
+
+  .page-container:last-child {
+    page-break-after: avoid;
+  }
+
+  /* Ensure content prints correctly */
+  .ProseMirror {
+    min-height: auto;
+  }
+}
+
+/* Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .page-container {
+    border: 2px solid black;
+  }
+
+  .toolbar button {
+    border: 2px solid currentColor;
+  }
 }
