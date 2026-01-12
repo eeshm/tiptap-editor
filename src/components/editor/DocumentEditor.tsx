@@ -1,14 +1,7 @@
 /**
  * Main Document Editor component.
  * 
- * This is the primary component that combines:
- * - Tiptap editor with required extensions
- * - Pagination logic
- * - Toolbar
- * - Page visuals
- * 
- * The editor maintains a single continuous ProseMirror document.
- * Pagination is purely visual and does not modify the document schema.
+ * Clean, minimal integration of all editor components.
  */
 
 'use client';
@@ -47,11 +40,11 @@ const INITIAL_CONTENT = `
 <p>The editor supports all common document elements:</p>
 
 <ol>
-  <li><strong>Paragraphs</strong> - Standard text blocks with proper line spacing</li>
-  <li><strong>Headings</strong> - H1, H2, and H3 for document structure</li>
-  <li><strong>Text Formatting</strong> - Bold, italic, and other inline styles</li>
-  <li><strong>Lists</strong> - Both bullet points and numbered lists</li>
-  <li><strong>Tables</strong> - Full table support with headers</li>
+  <li><strong>Paragraphs</strong> — Standard text blocks with proper line spacing</li>
+  <li><strong>Headings</strong> — H1, H2, and H3 for document structure</li>
+  <li><strong>Text Formatting</strong> — Bold, italic, and other inline styles</li>
+  <li><strong>Lists</strong> — Both bullet points and numbered lists</li>
+  <li><strong>Tables</strong> — Full table support with headers</li>
 </ol>
 
 <h2>Sample Table</h2>
@@ -83,7 +76,7 @@ const INITIAL_CONTENT = `
 
 <p>Start typing below to see pagination in action. Add more content to see new pages appear automatically. Try pasting in large amounts of text or adding multiple headings and lists to see how the pagination adapts.</p>
 
-<p>The editor maintains a single continuous document internally - page breaks are purely visual and don't affect the underlying content structure. This means copy/paste, find/replace, and other editing operations work exactly as expected.</p>
+<p>The editor maintains a single continuous document internally — page breaks are purely visual and don't affect the underlying content structure. This means copy/paste, find/replace, and other editing operations work exactly as expected.</p>
 
 <h3>Technical Notes</h3>
 
@@ -108,12 +101,10 @@ export function DocumentEditor() {
     immediatelyRender: false,
     extensions: [
       StarterKit.configure({
-        // Configure heading levels
         heading: {
           levels: [1, 2, 3],
         },
       }),
-      // Table extensions for table support
       Table.configure({
         resizable: true,
         HTMLAttributes: {
@@ -125,7 +116,6 @@ export function DocumentEditor() {
       TableHeader,
     ],
     content: INITIAL_CONTENT,
-    // Enable editor immediately
     autofocus: 'end',
     editorProps: {
       attributes: {
@@ -139,17 +129,24 @@ export function DocumentEditor() {
 
   return (
     <div className="document-editor flex flex-col h-full">
-      {/* Editor styles (global CSS) */}
+      {/* Editor styles */}
       <EditorStyles />
 
       {/* Toolbar */}
       <Toolbar editor={editor} />
 
       {/* Page count indicator */}
-      <div className="page-indicator px-4 py-2 bg-gray-50 border-b border-gray-200 text-sm text-gray-600">
-        <span className="font-medium">{pagination.totalPages}</span> page{pagination.totalPages !== 1 ? 's' : ''}
-        <span className="mx-2">•</span>
-        <span className="text-gray-500">A4 format with 1&quot; margins</span>
+      <div className="page-indicator flex items-center justify-between px-4 py-2 bg-white border-b border-slate-200/60">
+        <div className="flex items-center gap-2 text-xs">
+          <span className="font-medium text-slate-700">{pagination.totalPages}</span>
+          <span className="text-slate-400">
+            {pagination.totalPages === 1 ? 'page' : 'pages'}
+          </span>
+        </div>
+        <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
+          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>A4 • 1" margins</span>
+        </div>
       </div>
 
       {/* Paginated editor area */}
