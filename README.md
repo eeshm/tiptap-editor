@@ -1,58 +1,74 @@
 # Paginated Document Editor
 
-A **Tiptap-based rich text editor** with real-time pagination using `tiptap-pagination-plus`. Displays content as A4 pages with 1-inch margins — exactly as they would appear when printed.
-
-## Quick Start
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Open in browser
-open http://localhost:3000
-```
-
-## Features
-
-- ✅ **Real-time pagination** — Page breaks update dynamically as you type
-- ✅ **A4 page dimensions** — 794px × 1123px (at 96 DPI)
-- ✅ **1-inch margins** — Standard document margins on all sides
-- ✅ **Visual page breaks** — Clear separation between pages
-- ✅ **Page numbering** — Automatic page number display
-- ✅ **Rich text support** — Paragraphs, headings, bold, italic, lists, tables
+A Tiptap-based rich text editor with real-time pagination. Think Google Docs-style page breaks, but built with modern React.
 
 ---
 
-## How It Works
+## Getting Started
 
-This editor uses the [`tiptap-pagination-plus`](https://github.com/RomikMakavana/tiptap-pagination-plus) extension for automatic pagination.
+```bash
+# Clone and install
+git clone https://github.com/eeshm/tiptap-editor.git
+cd tiptap-editor
+npm install
 
-### Key Features of the Extension:
+# Run it
+npm run dev
 
-1. **Automatic page breaks** — Content automatically splits across pages when it exceeds the page height
-2. **Configurable dimensions** — Set page width, height, and margins
-3. **Header/Footer support** — Add custom content to page headers and footers
-4. **Table pagination** — Tables can split across pages correctly
-
-### Configuration
-
-The pagination is configured in `DocumentEditor.tsx`:
-
-```typescript
-const PAGINATION_CONFIG = {
-  pageHeight: 1123,  // A4 height (11.69" at 96 DPI)
-  pageWidth: 794,    // A4 width (8.27" at 96 DPI)
-  pageGap: 40,       // Space between pages
-  marginTop: 96,     // 1 inch
-  marginBottom: 96,  // 1 inch
-  marginLeft: 96,    // 1 inch
-  marginRight: 96,   // 1 inch
-  headerRight: 'Page {page}',
-};
+# Open http://localhost:3000
 ```
+
+That's it! You should see an editor with A4-sized pages.
+
+---
+
+## What's Included
+
+- **Real-time pagination** — Pages break automatically as you type
+- **A4 page size** — Standard paper dimensions with 1-inch margins
+- **Rich text** — Bold, italic, headings (H1-H3), bullet & numbered lists
+- **Tables** — Add rows, columns, delete tables
+- **Print** — Clean print output via the Print button
+
+---
+
+## How Page Breaks Work
+
+I'm using the [`tiptap-pagination-plus`](https://github.com/RomikMakavana/tiptap-pagination-plus) extension for pagination. Here's the gist:
+
+1. The extension watches the content height as you type
+2. When content exceeds the page height (1123px for A4), it inserts a page-break node
+3. These breaks are visible in the editor and trigger actual page breaks when printing
+
+**Page dimensions used:**
+- Width: 794px (8.27 inches × 96 DPI)
+- Height: 1123px (11.69 inches × 96 DPI)  
+- Margins: 96px all around (1 inch)
+
+---
+
+## Trade-offs & Limitations
+
+**What I chose:**
+- Used `tiptap-pagination-plus` instead of building custom pagination from scratch. It inserts nodes into the document (not purely view-layer), but it works reliably and saved a lot of time.
+
+**Current limitations:**
+- Long paragraphs won't split mid-sentence — they overflow to the next page
+- Very large tables might not split cleanly across pages
+- No image support yet
+- No widow/orphan control (headings can end up alone at page bottom)
+
+---
+
+## What I'd Improve
+
+With more time:
+
+1. **Image support** — Add the Tiptap Image extension with proper sizing
+2. **PDF export** — Generate downloadable PDFs instead of relying on browser print
+3. **Better table handling** — Split large tables across pages with repeated headers
+4. **Page navigation** — Jump to specific pages, maybe a thumbnail sidebar
+5. **Custom page sizes** — Letter, Legal, etc.
 
 ---
 
@@ -61,81 +77,25 @@ const PAGINATION_CONFIG = {
 ```
 src/
 ├── app/
-│   ├── page.tsx          # Main page
-│   ├── layout.tsx        # Root layout
-│   └── globals.css       # Global styles
+│   ├── page.tsx        # Main page
+│   ├── layout.tsx      # Root layout
+│   └── globals.css     # Styles + print styles
 └── components/
     └── editor/
-        ├── DocumentEditor.tsx  # Main editor with pagination
-        └── Toolbar.tsx         # Formatting toolbar
+        ├── DocumentEditor.tsx   # Editor with pagination
+        └── Toolbar.tsx          # Formatting toolbar
 ```
-
-### Key Files
-
-| File | Description |
-|------|-------------|
-| `DocumentEditor.tsx` | Main editor component with tiptap-pagination-plus integration |
-| `Toolbar.tsx` | Formatting toolbar with all editor actions |
-| `page.tsx` | Main page wrapper with header |
-
----
-
-## Supported Content
-
-| Content | Support |
-|---------|---------|
-| Paragraphs | ✅ |
-| Headings (H1-H3) | ✅ |
-| Bold / Italic | ✅ |
-| Bullet lists | ✅ |
-| Numbered lists | ✅ |
-| Tables | ✅ |
-
----
-
-## Page Dimensions
-
-Based on A4 paper at 96 DPI:
-
-| Dimension | Inches | Pixels |
-|-----------|--------|--------|
-| Page width | 8.27" | 794px |
-| Page height | 11.69" | 1123px |
-| Margins | 1" | 96px |
-| Content width | 6.27" | 602px |
-| Content height | 9.69" | 931px |
 
 ---
 
 ## Tech Stack
 
-- **Next.js 15** — React framework with App Router
-- **React 18** — UI library
-- **Tailwind CSS 4** — Utility-first CSS
-- **Tiptap** — Headless rich text editor
-- **tiptap-pagination-plus** — Pagination extension
-- **TypeScript** — Type safety
-
----
-
-## Development
-
-### Available Scripts
-
-```bash
-npm run dev     # Start development server
-npm run build   # Build for production
-npm run start   # Start production server
-npm run lint    # Run ESLint
-```
-
----
-
-## Credits
-
-- [Tiptap](https://tiptap.dev/) — Headless editor framework
-- [tiptap-pagination-plus](https://github.com/RomikMakavana/tiptap-pagination-plus) — Pagination extension by Romik Makavana
-- [ProseMirror](https://prosemirror.net/) — Editor foundation
+- Next.js 15
+- React 19
+- Tailwind CSS 4
+- Tiptap
+- tiptap-pagination-plus
+- TypeScript
 
 ---
 

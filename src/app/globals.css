@@ -126,23 +126,48 @@ kbd {
     width: 100% !important;
   }
 
+  .tiptap-editor,
   .tiptap-editor .ProseMirror {
     box-shadow: none !important;
-    padding: 0.5in !important;
+    border: none !important;
+    background: white !important;
   }
 
-  /* Page breaks */
+  /* Remove all page break visual elements */
   .page-break,
-  .tiptap-page-break {
-    page-break-before: always;
-    background: transparent !important;
+  .tiptap-page-break,
+  [class*="page-gap"],
+  [class*="page-break"] {
+    display: none !important;
+    visibility: hidden !important;
     height: 0 !important;
     margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    page-break-before: always;
+  }
+
+  /* Remove any borders from page containers */
+  .tiptap-page,
+  [data-page-number],
+  .tiptap-page-header,
+  .tiptap-page-footer {
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+
+  /* Hide header/footer elements in print - browser handles page numbers */
+  .tiptap-page-header,
+  .tiptap-page-footer {
+    display: none !important;
   }
 
   /* Ensure tables don't break awkwardly */
   table {
     page-break-inside: avoid;
+    border-collapse: collapse;
   }
 
   /* Keep headings with following content */
@@ -150,6 +175,18 @@ kbd {
   h2,
   h3 {
     page-break-after: avoid;
+  }
+
+  /* Remove any remaining borders */
+  * {
+    border-color: transparent !important;
+  }
+
+  /* Keep table borders visible */
+  table,
+  th,
+  td {
+    border-color: #e2e8f0 !important;
   }
 }
 
