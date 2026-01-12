@@ -8,9 +8,9 @@ import { DocumentEditor } from '@/components';
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col bg-slate-50">
-      {/* Minimal Header */}
-      <header className="bg-white/80 backdrop-blur-lg border-b border-slate-200/60 sticky top-0 z-30">
+    <main className="h-screen flex flex-col bg-slate-50 overflow-hidden">
+      {/* Minimal Header - fixed at top */}
+      <header className="shrink-0 bg-white/80 backdrop-blur-lg border-b border-slate-200/60 z-30">
         <div className="px-6 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -45,10 +45,11 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Editor container */}
+      {/* Editor container - takes remaining height */}
       <div className="flex-1 overflow-hidden">
         <DocumentEditor />
       </div>
     </main>
   );
 }
+

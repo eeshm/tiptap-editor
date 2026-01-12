@@ -201,7 +201,7 @@ export function DocumentEditor() {
       <Toolbar editor={editor} />
 
       {/* Page count indicator */}
-      <div className="page-indicator flex items-center justify-between px-4 py-2 bg-white border-b border-slate-200/60">
+      <div className="page-indicator shrink-0 flex items-center justify-between px-4 py-2 bg-white border-b border-slate-200/60">
         <div className="flex items-center gap-2 text-xs">
           <span className="font-medium text-slate-700">{pageCount}</span>
           <span className="text-slate-400">

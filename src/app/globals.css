@@ -96,6 +96,7 @@ kbd {
 /* Print styles */
 @media print {
 
+  /* Hide non-printable elements */
   header,
   .toolbar,
   .page-indicator,
@@ -104,32 +105,51 @@ kbd {
   }
 
   body {
-    background: white;
+    background: white !important;
     margin: 0;
     padding: 0;
   }
 
-  .paginated-editor-container {
-    height: auto;
-    overflow: visible;
-    padding: 0;
-    background: white;
+  main {
+    height: auto !important;
+    overflow: visible !important;
   }
 
-  .page-container {
+  .editor-scroll-container {
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  .editor-wrapper {
+    width: 100% !important;
+  }
+
+  .tiptap-editor .ProseMirror {
     box-shadow: none !important;
-    border: none;
-    page-break-after: always;
-    margin: 0;
-    border-radius: 0;
+    padding: 0.5in !important;
   }
 
-  .page-container:last-child {
+  /* Page breaks */
+  .page-break,
+  .tiptap-page-break {
+    page-break-before: always;
+    background: transparent !important;
+    height: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Ensure tables don't break awkwardly */
+  table {
+    page-break-inside: avoid;
+  }
+
+  /* Keep headings with following content */
+  h1,
+  h2,
+  h3 {
     page-break-after: avoid;
-  }
-
-  .ProseMirror {
-    min-height: auto;
   }
 }
 
