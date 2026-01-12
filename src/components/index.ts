@@ -1,5 +1,5 @@
 /**
- * Components module exports.
+ * Components barrel export.
  */
 
 export * from './editor';
