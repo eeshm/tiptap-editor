@@ -43,83 +43,7 @@ const PAGINATION_CONFIG = {
 };
 
 // Initial content demonstrating various content types
-const INITIAL_CONTENT = `
-<h1>Welcome to the Paginated Editor</h1>
 
-<p>This is a <strong>Tiptap-based rich text editor</strong> with <em>real-time pagination</em>. The pages you see below represent A4-sized documents with 1-inch margins, exactly as they would appear when printed.</p>
-
-<h2>How Pagination Works</h2>
-
-<p>This editor uses the <code>tiptap-pagination-plus</code> extension for automatic pagination. As you type, content automatically flows across pages with proper page breaks.</p>
-
-<ul>
-  <li>Page breaks update dynamically as you type</li>
-  <li>Formatting changes affect pagination</li>
-  <li>Complex content like tables is handled correctly</li>
-  <li>What you see matches what you'll get when printing</li>
-</ul>
-
-<h2>Supported Content Types</h2>
-
-<p>The editor supports all common document elements:</p>
-
-<ol>
-  <li><strong>Paragraphs</strong> — Standard text blocks with proper line spacing</li>
-  <li><strong>Headings</strong> — H1, H2, and H3 for document structure</li>
-  <li><strong>Text Formatting</strong> — Bold, italic, and other inline styles</li>
-  <li><strong>Lists</strong> — Both bullet points and numbered lists</li>
-  <li><strong>Tables</strong> — Full table support with headers</li>
-</ol>
-
-<h2>Sample Table</h2>
-
-<table>
-  <tr>
-    <th>Feature</th>
-    <th>Status</th>
-    <th>Notes</th>
-  </tr>
-  <tr>
-    <td>Real-time pagination</td>
-    <td>✓ Complete</td>
-    <td>Using tiptap-pagination-plus</td>
-  </tr>
-  <tr>
-    <td>A4 page dimensions</td>
-    <td>✓ Complete</td>
-    <td>Print-ready sizing</td>
-  </tr>
-  <tr>
-    <td>1-inch margins</td>
-    <td>✓ Complete</td>
-    <td>Standard document margins</td>
-  </tr>
-</table>
-
-<h2>Try It Out</h2>
-
-<p>Start typing to see pagination in action. Add more content to see new pages appear automatically. Try pasting large amounts of text or adding multiple headings and lists to see how the pagination adapts.</p>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-
-<h3>Technical Notes</h3>
-
-<p>This implementation uses:</p>
-<ul>
-  <li>Tiptap (built on ProseMirror) for rich text editing</li>
-  <li>tiptap-pagination-plus for automatic pagination</li>
-  <li>A4 page dimensions (794px × 1123px at 96 DPI)</li>
-  <li>1-inch margins on all sides</li>
-</ul>
-
-<p>Keep adding content to see more pages appear...</p>
-
-<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
-
-<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
-
-<p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.</p>
-`;
 
 /**
  * Main editor component with pagination.
@@ -145,7 +69,6 @@ export function DocumentEditor() {
       // Pagination Plus extension
       PaginationPlus.configure(PAGINATION_CONFIG),
     ],
-    content: INITIAL_CONTENT,
     autofocus: 'end',
   });
 
