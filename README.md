@@ -18,7 +18,7 @@ npm run dev
 # Open http://localhost:3000
 ```
 
-That's it! You should see an editor with A4-sized pages.
+Done!
 
 ---
 
@@ -53,7 +53,7 @@ I'm using the [`tiptap-pagination-plus`](https://github.com/RomikMakavana/tiptap
 - Used `tiptap-pagination-plus` instead of building custom pagination from scratch. It inserts nodes into the document (not purely view-layer), but it works reliably and saved a lot of time.
 
 **Current limitations:**
-- Long paragraphs won't split mid-sentence — they overflow to the next page
+- Insert node into the document for page break (not purely view-layer)
 - Very large tables might not split cleanly across pages
 - No image support yet
 - No widow/orphan control (headings can end up alone at page bottom)
